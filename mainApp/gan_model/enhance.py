@@ -1,14 +1,10 @@
-import sys
 import numpy as np
 import matplotlib.pyplot as plt
-import math
 from PIL import Image
-import random
 from .utils import *
 import os
-
 import torch
-from torch import nn, optim
+from torch import nn
 from torch.autograd.variable import Variable
 from torchvision import transforms
 from torch.utils.data import Dataset, DataLoader
