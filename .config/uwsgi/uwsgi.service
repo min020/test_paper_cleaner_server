@@ -1,0 +1,15 @@
+[Unit]
+Description=uWSGI service
+After=syslog.target
+ 
+[Service]
+ExecStart=uwsgi --socket /tmp/dj_project.sock --chmod-socket=666 --chown-socket ubuntu:ubuntu --home /home/ubuntu/myvenv/ --chdir /srv/test_paper_cleaner_server/ -w dj_project.wsgi
+ 
+Restart=always
+KillSignal=SIGQUIT
+Type=notify
+StandardError=syslog
+NotifyAccess=all
+ 
+[Install]
+WantedBy=multi-user.target
