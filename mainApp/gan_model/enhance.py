@@ -3,14 +3,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 from PIL import Image
-
+import cv2
 from .utils import *
 import os
 
 import torch
 from torch import nn
 from torch.autograd.variable import Variable
-from torchvision import transforms
+from torchvision import transforms  
 from torch.utils.data import Dataset, DataLoader
 import torch.nn as nn
 
@@ -125,8 +125,14 @@ def de_gan(deg_image_path, save_path):
 
     input_size = (256,256,1)
 
-    #deg_image_path = sys.argv[2]    
-    test_image = np.asarray(Image.open(deg_image_path).convert('L'))# /255.0
+    # deg_image_path = sys.argv[2]    
+    img = cv2.imread(deg_image_path, cv2.IMREAD_GRAYSCALE)
+    t, t_otsu = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
+    thresh_np = np.zeros_like(img)
+    thresh_np[img > t] = 255
+    test_image = np.asarray(thresh_np)
+
+    #test_image = np.asarray(Image.open(deg_image_path).convert('L'))
 
     h =  ((test_image.shape [0] // 256) +1)*256 
     w =  ((test_image.shape [1] // 256 ) +1)*256
@@ -145,7 +151,6 @@ def de_gan(deg_image_path, save_path):
         predicted_result.append(result)
 
 
-    #predicted_image = np.array(predicted_result)#.reshape()
     predicted_image=merge_image2(predicted_result,h,w)
 
     predicted_image=predicted_image[:test_image.shape[0],:test_image.shape[1]]
