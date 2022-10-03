@@ -13,13 +13,7 @@ def upload_to_func(instance, filename):
         [folder_name, "/", file_name, extension,]
     )
 
-# class Folder(models.Model):
-#     folder_name = models.CharField(max_length=100)
-    # def get_folder_name(self):
-    #     return self.folder_name
-    # files = models.ImageField(blank=True, upload_to=upload_to_func)
 
 class ImgUpload(models.Model):
-    # folder = models.ForeignKey(Folder, on_delete=models.CASCADE)
     folder_name = models.CharField(max_length=100)
     files = models.ImageField(blank=True, upload_to=upload_to_func)
