@@ -54,21 +54,7 @@ def model_form_upload(request):
             s3r = boto3.resource('s3', aws_access_key_id='AKIA2QZD4ENYR4G62TEH', aws_secret_access_key='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')        
             data = open(save_path+folder_name+'/'+folder_name+'.zip', 'rb')
             s3r.Bucket('testpapergan').put_object( Key=folder_name, Body=data, ContentType='zip')
+            data.close()
             return HttpResponse(json.dumps({"status": "Success"}))
         else:
             return HttpResponse(json.dumps({"status": "Failed"}))
-    
-
-def img_process_model(request):
-    if request.method == "GET":
-        s3r = boto3.resource('s3', aws_access_key_id='AKIA2QZD4ENYR4G62TEH', aws_secret_access_key='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')
-        base_path = os.path.dirname(os.path.abspath(__file__))
-        load_path = base_path+'/../media/'
-        save_path = base_path+'/./result/'
-        img_list = os.listdir(load_path)
-        for i, img in enumerate(img_list, start=1):
-            enhance.de_gan(load_path+img, save_path+str(i)+'.png')
-            data = open(save_path+str(i)+'.png', 'rb')
-            s3r.Bucket('testpapergan').put_object( Key=str(i), Body=data, ContentType='png')
-
-        return HttpResponse(json.dumps({"status": "Success"}))
