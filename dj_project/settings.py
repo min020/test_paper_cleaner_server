@@ -138,6 +138,6 @@ AWS_STORAGE_BUCKET_NAME ='testpapergan'
 AWS_QUERYSTRING_AUTH = False
 
 CORS_ORIGIN_WHITELIST = [
-    "http://localhost:3000",
-    "http://127.0.0.1:8000",
+    "http://3.35.220.81:8000",
+    "http://121.200.112.145:8000",
 ]

@@ -17,3 +17,5 @@ def upload_to_func(instance, filename):
 class ImgUpload(models.Model):
     folder_name = models.CharField(max_length=100)
     files = models.ImageField(blank=True, upload_to=upload_to_func)
+    hash_code = models.CharField(max_length=100)
+    result_img_path = models.CharField(max_length=100)
